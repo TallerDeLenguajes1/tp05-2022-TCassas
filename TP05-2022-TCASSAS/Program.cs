@@ -1,20 +1,57 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Ingrese un numero");
-int numero = Int32.Parse(Console.ReadLine());
-int numeroAuxiliar = numero;
+Console.WriteLine("- Ingrese el numero de la operación matematica que desea ralizar --");
+int opcionElegida = printMenuYEligeOpcion();
+List<int> numeros = new List<int>();
 
-String numeroInvertido = "";
-if(numero >= 0) {
-    while(numeroAuxiliar > 0) {
-        int digito = numeroAuxiliar % 10;
-        numeroAuxiliar /= 10;
-
-        // Condición para evitar numeros con 0's a la izquierda (ejemplos: 500, 50050)
-        if((numeroInvertido.Length == 0 && digito != 0) || (numeroInvertido.Length > 0)) {
-            numeroInvertido += digito;
-        }
+while(opcionElegida != 0) {
+    numeros = solicitarNumeros();
+    switch(opcionElegida) {
+        case 1:
+            sumar(numeros);
+            break;
     }
-    Console.WriteLine("Numero invertido: " + numeroInvertido);
-} else {
-    Console.WriteLine("Numero negativo detectado, resultado: " + numero);
+
+    Console.WriteLine("-- ¿Desea realizar otra operación matematica? --");
+    opcionElegida = printMenuYEligeOpcion();
+}
+
+int printMenuYEligeOpcion() {
+    Console.WriteLine("\t1: Sumar");
+    Console.WriteLine("\t2: Restar");
+    Console.WriteLine("\t3: Multiplicar");
+    Console.WriteLine("\t4: Dividir");
+    Console.WriteLine("\t0: Salir");
+
+    int decision = Int32.Parse(Console.ReadLine());
+    while(decision < 0 && decision > 4) {
+        Console.WriteLine("Opcion invalida, elija un numero dentro de la lista");
+        decision = Int32.Parse(Console.ReadLine());
+    }
+
+    return decision;
+}
+
+void sumar(List<int> numeros) {
+    int acumulador = 0;
+    Console.WriteLine("Resultado:");
+    numeros.ForEach(numero => {
+        acumulador += numero;
+        Console.Write(numero + " + ");
+    });
+    Console.WriteLine(" = " + acumulador);
+}
+
+List<int> solicitarNumeros() {
+    List<int> numerosSolicitados = new List<int>();
+    Console.WriteLine("¿Cuantos numeros desea ingrear?");
+    int cantidadNumeros = Int32.Parse(Console.ReadLine());
+
+    if(cantidadNumeros == 0) return solicitarNumeros();
+
+    for(int i = 0; i < cantidadNumeros; i++) {
+        Console.WriteLine("- Ingrese el numero° " + (i + 1));
+        numerosSolicitados.Add(Int32.Parse(Console.ReadLine()));
+    }
+
+    return numerosSolicitados;
 }
