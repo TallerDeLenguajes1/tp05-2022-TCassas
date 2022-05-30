@@ -9,6 +9,9 @@ while(opcionElegida != 0) {
         case 1:
             sumar(numeros);
             break;
+        case 2:
+            restar(numeros);
+            break;
     }
 
     Console.WriteLine("-- ¿Desea realizar otra operación matematica? --");
@@ -37,8 +40,23 @@ void sumar(List<int> numeros) {
     numeros.ForEach(numero => {
         acumulador += numero;
         Console.Write(numero + " + ");
+        
     });
     Console.WriteLine(" = " + acumulador);
+}
+
+void restar(List<int> numeros) {
+    int acumulador = numeros[0];
+    Console.WriteLine("Resultado:");
+    if(numeros.Count > 1) {
+        for(int i = 1; i < numeros.Count; i++) {
+            acumulador -= numeros[i];
+            Console.Write(numeros[i] + " + ");
+        }
+        Console.WriteLine(" = " + acumulador);
+    } else {
+        Console.WriteLine(" = " + acumulador);
+    }
 }
 
 List<int> solicitarNumeros() {
